@@ -1,4 +1,4 @@
-import { Controller, Get, HttpException, HttpStatus, Param, ParseIntPipe } from "@nestjs/common";
+import { Body, Controller, Get, HttpException, HttpStatus, Param, ParseIntPipe, Post, Query } from "@nestjs/common";
 import { AppService } from "./app.service";
 
 @Controller()
@@ -6,9 +6,17 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
+  public getHello(): string {
     return this.appService.getHello();
   }
+
+  @Post('')
+  public postHello(@Body()name: string): string {
+    const type = typeof name;
+    const nameString = JSON.stringify(name);
+    return `Body: ${nameString} of type ${type}`;
+  }
+  
 
   @Get("/test")
   public getTest(): string {
@@ -44,5 +52,23 @@ export class AppController {
     const square = someNumber * someNumber;
     return `Square of: ${someNumber} of type ${type} is ${square}`;
   }
+
+  @Get("/multiply/:someNumber/:otherNumber")
+  public getMultiply(
+    @Param("someNumber", ParseIntPipe) someNumber: number,
+    @Param("otherNumber", ParseIntPipe) otherNumber: number,
+    ): number {  
+      return this.appService.multiply(someNumber, otherNumber);
+  }
+
+  @Get("/multiply/query")
+  public getMultiplyQuery(
+    @Query("a", ParseIntPipe) a: number,
+    @Query("b", ParseIntPipe) b: number,
+    ): number {      
+    return this.appService.multiply(a,b);
+  }
+
+
 
 }

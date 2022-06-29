@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
-import { ClientDto } from './models/client.dto';
-import { Client } from './models/client.interface';
+import { Injectable } from "@nestjs/common";
+import { ClientDto } from "./models/client.dto";
+import { Client } from "./models/client.interface";
 
 export class AppServiceBase {
   public getHello(): string {
-    return 'Hello World!';
+    return "Hello World!";
   }
 
   public multiply(someNumber: number, otherNumber: number): number {
@@ -28,8 +28,8 @@ export class AppServiceBase {
   }
 
   public updateClient(clientId: string, client: Client): Client {
-    if (clientId !== '') {
-      throw new Error('NOT FOUND: ' + clientId);
+    if (clientId !== "") {
+      throw new Error("NOT FOUND: " + clientId);
     }
     return client;
   }

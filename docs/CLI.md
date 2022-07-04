@@ -50,6 +50,7 @@ nest g service auth/jwt-strategy
 
 ```
 npm i mongoose @nestjs/mongoose
+nest g filter core/filters/mongodb-error
 ```
 
 # 5 - Postgres

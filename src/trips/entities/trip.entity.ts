@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Booking } from "src/bookings/entities/booking.entity";
+import { Column, Entity, OneToMany, PrimaryColumn } from "typeorm";
 
 @Entity("trips")
 export class Trip {
@@ -22,4 +23,11 @@ export class Trip {
 
   @Column({ type: "timestamp", default: () => "now()" })
   createdAt: Date;
+
+  @Column({ nullable: true })
+  updatedAt: Date;
+
+  @OneToMany(() => Booking, (booking: Booking) => booking.trip, { cascade: true, eager: false })
+  bookings: Booking[];
+
 }
